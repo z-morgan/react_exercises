@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const PATH = 'http://localhost:3001/persons';
+const PATH = '/api/persons';
 
 const getAll = () => {
   return axios.get(PATH).then(response => response.data);
