@@ -1,31 +1,41 @@
 const express = require('express')
 const app = express()
+require('dotenv').config();
 
 const mongoose = require('mongoose')
-const { config } = require('dotenv');
-config();
+const Note = require('./models/note')
 
 const cors = require('cors');
 app.use(cors());
 app.use(express.static('build'))
 app.use(express.json())
 
+
 // Database stuff
 
-const password = process.env.DB_PASSWORD;
+// const password = process.env.DB_PASSWORD;
 
-const url =
-  `mongodb+srv://zachmorgan97:${password}@fullstack-open-main.mi141gs.mongodb.net/noteApp?retryWrites=true&w=majority`
+// const url =
+//   `mongodb+srv://zachmorgan97:${password}@fullstack-open-main.mi141gs.mongodb.net/noteApp?retryWrites=true&w=majority`
 
-mongoose.set('strictQuery',false)
-mongoose.connect(url)
+// mongoose.set('strictQuery',false)
+// mongoose.connect(url)
 
-const noteSchema = new mongoose.Schema({
-  content: String,
-  important: Boolean,
-})
+// const noteSchema = new mongoose.Schema({
+//   content: String,
+//   important: Boolean,
+// })
 
-const Note = mongoose.model('Note', noteSchema)
+// // this code modifies the schema for notes so that `__v` field is not returned, and `_id` is formatted as a string
+// noteSchema.set('toJSON', { 
+//   transform: (document, returnedObject) => {
+//     returnedObject.id = returnedObject._id.toString()
+//     delete returnedObject._id
+//     delete returnedObject.__v
+//   }
+// })
+
+// const Note = mongoose.model('Note', noteSchema)
 
 // let notes = [
 //   {
@@ -100,7 +110,7 @@ app.post('/api/notes', (request, response) => {
   response.json(note)
 })
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 });
