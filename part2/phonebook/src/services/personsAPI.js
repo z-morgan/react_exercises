@@ -17,7 +17,7 @@ const update = person => {
 
 const deleteById = id => {
   return axios.delete(PATH + `/${id}`)
-              .then(response => response.status === 200);
+              .then(response => response.status === 204);
 }
 
 export default { getAll, create, update, deleteById }
